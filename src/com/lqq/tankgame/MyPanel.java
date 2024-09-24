@@ -234,7 +234,6 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
 
     @Override
     public void run() {
-        Iterator<EnemyTank> iterator = enemyTanks.iterator();
         while (true) {
             try {
                 Thread.sleep(10);
@@ -246,13 +245,16 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             //判断是否击中了敌人坦克
             for (Shot shot : myTank.shots) {
                 if (shot != null && shot.isLive) {
-                    while (iterator.hasNext()) {
-                        EnemyTank enemyTank = iterator.next();
-                        if (hitEnemyTank(shot, enemyTank)) {
-                            iterator.remove();
-                            break;
-                        }
+                    for(EnemyTank enemyTank : enemyTanks){
+                        hitEnemyTank(shot,enemyTank);
                     }
+//                    while (iterator.hasNext()) {
+//                        EnemyTank enemyTank = iterator.next();
+//                        if (hitEnemyTank(shot, enemyTank)) {
+//                            iterator.remove();
+//                            break;
+//                        }
+//                    }
                 }
             }
             //判断是否被敌人子弹击中
